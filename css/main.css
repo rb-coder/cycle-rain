@@ -1,0 +1,122 @@
+html, body {
+	margin: 0;
+	padding: 0;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#app, .page {
+    position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.playground {
+    position: absolute;
+    top: 2em;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 1;
+}
+
+@keyframes letter-animation {
+    0% {
+        bottom:100%;
+        color: black;
+        font-size: 1.2em;
+    }
+    99% {
+        bottom:0%;
+        color: red;
+        font-size: 2em;
+    }
+    100% {
+        bottom:0%;
+        color: transparent;
+        font-size: 10em;
+    }
+}
+
+.letter {
+    position: absolute;
+    animation-name: letter-animation;
+    animation-timing-function: linear;
+	animation-duration: 10s;
+}
+
+.header-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2em;
+    border-bottom: double;
+    background-color: white;
+    z-index: 2;
+}
+
+.time {
+    position: absolute;
+    top: 0;
+    left: 1em;
+    height: 2em;
+    line-height: 2em;
+}
+
+.score {
+    position: absolute;
+    top: 0;
+    right: 1em;
+    height: 2em;
+    line-height: 2em;
+}
+
+.communication {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 3;
+}
+
+.start-instructions {
+
+}
+
+.start {
+    font-size: 3em;
+    background-color: inherit;
+    border: 2px solid lightgreen;
+    border-radius: 10px;
+    outline: none;
+    font-family: monospace;
+}
+
+.start:hover {
+    background-color: lightgreen;
+    color: white;
+}
+
+.start:active {
+    background-color: lightgreen;
+    color: inherit;
+}
+
+.count-down {
+    font-size: 2em;
+}
+
+.the-end {
+
+}
+
+.game-over {
+    font-size: 2em;
+    color: darkred;
+}
