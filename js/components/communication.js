@@ -16,7 +16,7 @@ const communication = ({props, DOM}) => {
     let message = null;
     if (ready) {
       message = <div className="start-instructions">
-                  <p className="instructions">Press letters to make them disappear</p>
+                  <p className="instructions">Type letters to make them disappear</p>
                   <button className="start">Start</button>
                  </div>;
     } else if (over) {

@@ -24,29 +24,8 @@ html, body {
     z-index: 1;
 }
 
-@keyframes letter-animation {
-    0% {
-        bottom:100%;
-        color: black;
-        font-size: 1.2em;
-    }
-    99% {
-        bottom:0%;
-        color: red;
-        font-size: 2em;
-    }
-    100% {
-        bottom:0%;
-        color: transparent;
-        font-size: 10em;
-    }
-}
-
 .letter {
     position: absolute;
-    animation-name: letter-animation;
-    animation-timing-function: linear;
-	animation-duration: 10s;
 }
 
 .header-bar {

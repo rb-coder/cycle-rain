@@ -45,16 +45,17 @@ let main = ({DOM}) => {
       });
       let letter$ = actions.letter$.map((currentLetter) => {
           return (state) => {
-              if (state.running && state.letters.filter(letter => letter.symbol === currentLetter).length > 0) {
+              if (state.running) {
                   let newState = JSON.parse(JSON.stringify(state));
-                  newState.letters = [];
-                  state.letters.forEach((letter) => {
-                      if (letter.symbol === currentLetter) {
+                  let found = state.letters.filter((letter) => letter.symbol === currentLetter);
+                  if (found.length > 0) {
+                      found.forEach((letter) => {
                           newState.score += (letter.endTime - newState.time);
-                      } else {
-                          newState.letters.push(letter);
-                      }
-                  });
+                      });
+                      newState.letters = state.letters.filter((letter) => letter.symbol !== currentLetter);
+                  } else {
+                      newState.score -= 100;
+                  }
 
                   return newState;
               }
@@ -80,7 +81,8 @@ let main = ({DOM}) => {
                   return {
                     symbol: letter,
                     position: Math.round(Math.random() * 50) * 2,
-                    endTime: state.time + 100
+                    startTime: state.time,
+                    endTime: state.time + 25 + Math.round(35 * Math.random())
                   };
                 })
                 .subscribe((newLetter) => {
@@ -94,11 +96,7 @@ let main = ({DOM}) => {
       });
 
       let transform$ = Rx.Observable.merge(
-        // Controlled by a Player
-        start$, letter$,
-
-        // Not controlled by a Player
-        time$
+        start$, letter$, time$
       );
 
       return transform$
@@ -110,7 +108,7 @@ let main = ({DOM}) => {
   let view = (state$) => state$.map((state) =>
     <div className="page">
       <header key="1" time={state.time} score={state.score} />
-      <playground className="playground" key="2" letters={state.letters} />
+      <playground className="playground" key="2" time={state.time} letters={state.letters} />
       <communication className="communication" key="3" ready={state.ready} over={state.over} />
     </div>
   );
