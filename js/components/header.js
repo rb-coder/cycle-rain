@@ -4,21 +4,22 @@ import CycleDOM from '@cycle/dom';
 
 const header = ({props, DOM}) => {
   let intent = (DOM) => null;
-  let model = (props, actions) => Rx.Observable.combineLatest(props.get('time'), props.get('score'),
-    (time, score) => {
+  let model = (props, actions) => Rx.Observable.combineLatest(
+    props.get('minutes'),
+    props.get('seconds'),
+    props.get('score'),
+    (minutes, seconds, score) => {
       return {
-        time: {
-          min: Math.floor(time / 600),
-          sec: Math.floor((time % 600) / 10)
-        },
+        minutes,
+        seconds,
         score
       };
     }
   );
-  let view = (state$) => state$.map((state) =>
+  let view = (state$) => state$.map(({minutes, seconds, score}) =>
     <div className="header-bar">
-	  <div className="time">Elapsed: {state.time.min} : {state.time.sec}</div>
-	  <div className="score">Score: {state.score}</div>
+	  <div className="time">Elapsed: {minutes}m : {seconds}s</div>
+	  <div className="score">Score: {score}</div>
 	</div>
   );
 

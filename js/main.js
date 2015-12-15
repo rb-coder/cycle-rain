@@ -80,7 +80,7 @@ let main = ({DOM}) => {
                 .map(letter => {
                   return {
                     symbol: letter,
-                    position: Math.round(Math.random() * 50) * 2,
+                    position: Math.floor(Math.random() * 50) * 2,
                     startTime: state.time,
                     endTime: state.time + 25 + Math.round(35 * Math.random())
                   };
@@ -105,11 +105,15 @@ let main = ({DOM}) => {
         .distinctUntilChanged();
   }
 
-  let view = (state$) => state$.map((state) =>
+  let view = (state$) => state$.map((state) => {
+      state.minutes = Math.floor(state.time / 600);
+      state.seconds = Math.floor((state.time % 600) / 10);
+      return state;
+  }).map((state) =>
     <div className="page">
-      <header key="1" time={state.time} score={state.score} />
+      <header key="1" minutes={state.minutes} seconds={state.seconds} score={state.score} />
       <playground className="playground" key="2" time={state.time} letters={state.letters} />
-      <communication className="communication" key="3" ready={state.ready} over={state.over} />
+      <communication className="communication" key="3" minutes={state.minutes} seconds={state.seconds} score={state.score} ready={state.ready} over={state.over} />
     </div>
   );
 
